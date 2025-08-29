@@ -16,6 +16,13 @@ module.exports = {
                 },
             },
             {
+                test: /\.js$/, // Apply to JavaScript files
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader', // Use Babel loader
+                },
+            },
+            {
                 exclude: /node_modules/,
                 test: /\.css$/,
                 use: ['style-loader','css-loader'],
