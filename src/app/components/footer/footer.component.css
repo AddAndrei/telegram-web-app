@@ -1,0 +1,29 @@
+.lucide{
+  color: #929292;
+  width: 25px;
+  height: 25px;
+}
+.footer{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 70px;
+  padding-right: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+}
+.footer-button{
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+.footer-button>span{
+  color: #929292;
+  font-weight: bold;
+  font-size: 25px;
+}
