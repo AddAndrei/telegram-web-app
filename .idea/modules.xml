@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/telephone.iml" filepath="$PROJECT_DIR$/.idea/telephone.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/telephone-tg-app.iml" filepath="$PROJECT_DIR$/.idea/telephone-tg-app.iml" />
     </modules>
   </component>
 </project>
