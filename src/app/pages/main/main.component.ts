@@ -11,5 +11,7 @@ import {FooterComponent} from "../../components/footer/footer.component";
   styleUrl: './main.component.css'
 })
 export class MainComponent {
-
+  testServ(){
+    console.log('ok');
+  }
 }
