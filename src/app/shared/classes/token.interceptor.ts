@@ -10,10 +10,11 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
     if (this.login.isAuth()) {
       req = req.clone({
         setHeaders: {
-          "Authorization": "" + this.login.getToken()?.toString()
+          Authorization: "Bearer " + localStorage.getItem('token')
         }
       });
     }
