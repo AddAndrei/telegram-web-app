@@ -1,2 +1,7 @@
-<p>favorites works!</p>
+<header class="header">
+  <div *ngIf="!this.products" class="favorites">
+    У вас нет ничего в избранном!
+  </div>
+</header>
+<app-products [products]=this.products></app-products>
 <app-footer></app-footer>

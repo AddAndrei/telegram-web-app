@@ -1,0 +1,9 @@
+.favorites{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20dvh;
+  font-size: 24px;
+  color: #8F8F8F;
+}

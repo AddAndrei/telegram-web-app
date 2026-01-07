@@ -1,0 +1,82 @@
+.login{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  height: 100dvh;
+  justify-content: center;
+  align-items: center;
+}
+.login>form{
+  width: 100%;
+}
+.container{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+.error{
+  color: #F15B42;
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.up{
+  font-size: 24px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.input{
+  width: 100%;
+  height: 42px;
+  background: #F4F4F4;
+  padding-left: 15px;
+  border-radius: 15px;
+  outline: none;
+  border: none;
+}
+.in-err{
+  width: 100%;
+  height: 42px;
+  background: #F4F4F4;
+  padding-left: 15px;
+  border-radius: 15px;
+  outline: none;
+  border: 1px solid #F15B42;
+}
+.form-row{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+}
+.inputs{
+  justify-content: space-between;
+}
+.form-row>span{
+  color: #929292;
+  font-size: 17px;
+}
+
+.button{
+  width: 100%;
+  height: 42px;
+  color: #fff;
+  background: #007CB2;
+  font-size: 20px;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+
+

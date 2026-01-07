@@ -1,8 +1,13 @@
 <div class="container">
   <div class="row">
     <div></div>
-    <div class="footer-button">
-
+    <div class="footer-button" (click)="closeDialog()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x">
+        <path d="M18 6 6 18"/>
+        <path d="m6 6 12 12"/>
+      </svg>
     </div>
   </div>
   <form class="filter-form">
@@ -19,28 +24,12 @@
       <input class="input" type="text" placeholder="Выбрать город" name="city">
     </div>
     <div class="form-row">
-      <span>Название</span>
-      <input class="input" type="text" placeholder="Название" name="city">
-      <div class="subtext">символов 0 из 100</div>
-    </div>
-    <div class="form-row">
-      <span>Описание</span>
-      <textarea class="textarea" rows="10" placeholder="Описание" name="city"></textarea>
-      <div class="subtext">символов 0 из 1000</div>
-    </div>
-    <div class="form-row">
       <span>Цена</span>
-      <input class="input" type="text" placeholder="Цена" name="city">
-      <div class="subtext">цена ₽</div>
-    </div>
-    <div class="form-row">
-      <span>Фото</span>
-      <div class="subtext right">Первое фото будет отображаться в результатах поиска , выберите наиболее удачное. Можно загрузить до 10 фотографий</div>
-      <label for="file" class="input label">
-        <span>Загрузите фото </span>
-        <input class="input-file" type="file" id="file" accept="image/png, image/jpeg" name="city">
-      </label>
-      <div class="subtext center">Загрузите хотя бы одно изображение товара!</div>
+      <div class="row inputs">
+        <input class="input price" type="text" name="city" placeholder="От">
+        <input class="input price" type="text" placeholder="До">
+      </div>
+
     </div>
     <div class="hidden" *ngIf="this.is_not_telephones">
       <div class="form-row">
@@ -121,12 +110,10 @@
       </div>
     </div>
     <div class="form-row">
-      <button class="button" type="button">Применить</button>
+      <button class="button" (click)="send()" type="button">Применить</button>
     </div>
   </form>
 </div>
 
 
 
-
-<app-footer></app-footer>

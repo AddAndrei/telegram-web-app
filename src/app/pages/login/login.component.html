@@ -1,0 +1,38 @@
+<div class="login">
+  <form action="" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div *ngIf="error" class="error up">{{this.error}}</div>
+      <input class="{{((phone?.dirty || phone?.touched) && phone?.hasError('required')) ? 'in-err' : 'input'}}"
+             type="text"
+             placeholder="логин"
+             formControlName="phone"
+             name="phone"
+      >
+      @if (phone?.invalid && (phone?.dirty || phone?.touched)) {
+        @if (phone?.hasError('required')) {
+          <div class="error">Это поле обязательно</div>
+        }
+      }
+    </div>
+    <div class="form-row">
+      <input
+        class="{{((password?.dirty || password?.touched) && password?.hasError('required') || password?.hasError('minLength')) ? 'in-err' : 'input'}}"
+        type="password"
+        placeholder="пароль"
+        formControlName="password"
+        name="password"
+      >
+      @if (password?.invalid && (password?.dirty || password?.touched)) {
+        @if (password?.hasError('required')) {
+          <div class="error">Это поле обязательно</div>
+        }
+        @if (password?.hasError('minlength')) {
+          <div class="error">Минимум 6 символов</div>
+        }
+      }
+    </div>
+    <div class="form-row">
+      <button [disabled]="form.disabled" class="button" type="submit">Войти</button>
+    </div>
+  </form>
+</div>
