@@ -17,6 +17,7 @@ export class LoginService extends HttpService {
       }
     }).pipe(tap((data: any) => {
       localStorage.setItem('token', data.token);
+      localStorage.setItem('id', data.profile.id);
     }));
   }
 

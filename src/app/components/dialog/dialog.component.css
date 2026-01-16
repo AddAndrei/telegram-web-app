@@ -1,0 +1,131 @@
+.header{
+  position: fixed;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  left: 0;
+  width: 100%;
+  margin-bottom: 70px;
+  box-shadow: 0 4px 2px -4px rgba(0, 0, 0, 0.2);
+  padding-left: 15px;
+  padding-right: 15px;
+  background: #F4F4F4;
+}
+.lucide{
+  color: #929292;
+  width: 36px;
+  height: 36px;
+}
+.user{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  height: 70px;
+}
+.row{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+}
+.user-name{
+  font-size: 20px;
+  font-weight: 500;
+}
+.status{
+  color: #929292;
+}
+.avatar{
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.avatar>img{
+  border-radius: 50%;
+}
+.input-message{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 50px;
+  width: 100%;
+  z-index: 2;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.input-message-text{
+  outline: none;
+  width: 100%;
+  height: 95%;
+  border: none;
+  background: #EEEEEE;
+  padding-left: 10px;
+}
+.lucide-send-horizontal-icon{
+  position: absolute;
+  right: 10px;
+}
+.chat{
+  padding-top: 85px;
+  padding-bottom: 65px;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  min-height: 100dvh;
+  z-index: 2;
+  height: auto;
+}
+.row-message{
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
+.partner{
+  justify-content: flex-start;
+}
+.message-box {
+  padding: 6px 10px;
+  border-radius: 6px 0 6px 0;
+  position: relative;
+  background: rgba(100, 170, 0, .1);
+  border: 2px solid rgba(100, 170, 0, .1);
+  color: #6c6c6c;
+  font-size: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 80%;
+}
+
+.message-box:after {
+  content: "";
+  position: absolute;
+  border: 10px solid transparent;
+  border-top: 10px solid rgba(100, 170, 0, .2);
+  border-right: none;
+  bottom: -22px;
+  right: 10px;
+}
+
+.message-partner {
+  background: rgba(0, 114, 135, .1);
+  border: 2px solid rgba(0, 114, 135, .1);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.message-partner:after {
+  right: auto;
+  bottom: auto;
+  top: -22px;
+  left: 9px;
+  border: 10px solid transparent;
+  border-bottom: 10px solid rgba(0, 114, 135, .2);
+  border-left: none;
+}

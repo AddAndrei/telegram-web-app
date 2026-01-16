@@ -1,0 +1,41 @@
+<div *ngIf="onloadData">
+  <div class="chatbox" id="app">
+    <header class="header">
+      <svg routerLink="/messages" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+           fill="none" stroke="currentColor"
+           stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="lucide lucide-chevron-left-icon lucide-chevron-left">
+        <path d="m15 18-6-6 6-6"/>
+      </svg>
+      <div class="user">
+        <div class="row">
+          <div class="user-name">{{ data[0].sender.last_name }} {{ this.data[0].sender.name }}</div>
+          <div class="status">{{ (data[0].sender.online == '1') ? 'online' : 'offline' }}</div>
+        </div>
+        <div class="avatar">
+          <img ngSrc="{{ data[0].sender.image }}" width="50" height="50" alt="avatar">
+        </div>
+      </div>
+    </header>
+  </div>
+
+  <div class="input-message">
+    <input type="text" #message class="input-message-text" placeholder="отправить сообщение">
+    <svg (click)="sendMessage()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+         class="lucide lucide-send-horizontal-icon">
+      <path
+        d="M3.714 3.048a.498.498 0 0 0-.683.627l2.843 7.627a2 2 0 0 1 0 1.396l-2.842 7.627a.498.498 0 0 0 .682.627l18-8.5a.5.5 0 0 0 0-.904z"/>
+      <path d="M6 12h16"/>
+    </svg>
+  </div>
+
+</div>
+<div class="chat" #chat id="chat-app">
+  <div #itemsRef *ngFor="let message of data" class="{{(message.sender.id == myId) ? 'row-message' : 'row-message partner'}}">
+    <div class="{{(message.sender.id == myId) ? 'message-box' : 'message-box message-partner'}}">
+      <span>{{ message.message }}</span>
+      <span>{{ getTime(message.date) }}</span>
+    </div>
+  </div>
+</div>

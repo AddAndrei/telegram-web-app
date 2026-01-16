@@ -1,0 +1,12 @@
+import {Injectable} from "@angular/core";
+import {HttpService} from "../http.service";
+import {Observable} from "rxjs";
+
+@Injectable({
+  providedIn: "root",
+})
+export class GetSystem extends HttpService {
+  get(): Observable<any> {
+    return this.http.get(this.url + "mm");
+  }
+}

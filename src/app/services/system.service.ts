@@ -1,3 +1,5 @@
+import {GetSystem} from "./system/get.system";
+
 export class SystemService {
   private static _instance: SystemService = new SystemService();
 
@@ -12,6 +14,10 @@ export class SystemService {
 
   public static getInstance(): SystemService {
     return SystemService._instance;
+  }
+
+  public getSystemOptions() {
+
   }
 
   public setScore(value: number): void {

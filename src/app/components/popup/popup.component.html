@@ -1,0 +1,8 @@
+
+<div class="popup-background" (click)="close()" *ngIf="visible">
+  <div class="popup-window" (click)="$event.stopPropagation()">
+    <ng-content></ng-content> <!-- Содержимое popup -->
+    <!--<button (click)="close()">Закрыть</button>-->
+  </div>
+</div>
+

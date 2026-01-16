@@ -42,6 +42,19 @@
   padding-left: 15px;
   padding-top: 15px;
 }
+.error{
+  color: #F15B42;
+}
+
+.in-err-area{
+  resize: none;
+  border-radius: 15px;
+  outline: none;
+  border: 1px solid #F15B42;
+  background: #F4F4F4;
+  padding-left: 15px;
+  padding-top: 15px;
+}
 .subtext.center{
   justify-content: center;
   margin-top: 5px;
@@ -64,6 +77,15 @@
   border-radius: 15px;
   outline: none;
   border: none;
+}
+.in-err{
+  width: 100%;
+  height: 42px;
+  background: #F4F4F4;
+  padding-left: 15px;
+  border-radius: 15px;
+  outline: none;
+  border: 1px solid #F15B42;
 }
 .input.label{
   width: 100%;
@@ -90,6 +112,16 @@
   flex-direction: column;
   width: 100%;
   margin-bottom: 15px;
+}
+.for-images{
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.preview-images{
+  width: 100%;
+  height: 250px;
 }
 .inputs{
   justify-content: space-between;

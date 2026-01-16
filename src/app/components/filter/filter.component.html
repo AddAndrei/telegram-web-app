@@ -10,102 +10,55 @@
       </svg>
     </div>
   </div>
-  <form class="filter-form">
+  <form class="filter-form" [formGroup]=form>
     <div class="form-row">
       <span>Категория</span>
-      <select [(ngModel)]="selectedValue" (ngModelChange)="onSelectChange($event)" class="input select" name="category" id="">
-        <option value="telephones">Телефоны</option>
-        <option value="access">Аксессуары</option>
-        <option value="details">Запчасти</option>
+      <select [(ngModel)]="selectedValue" (ngModelChange)="onSelectChange($event)" class="input select" name="category"
+              formControlName="category">
+        <option value="1">Телефоны</option>
+        <option value="2">Аксессуары</option>
+        <option value="3">Запчасти</option>
       </select>
     </div>
     <div class="form-row">
       <span>Город</span>
-      <input class="input" type="text" placeholder="Выбрать город" name="city">
+      <input class="input" type="text" placeholder="Выбрать город" formControlName="city" name="city">
     </div>
     <div class="form-row">
       <span>Цена</span>
       <div class="row inputs">
-        <input class="input price" type="text" name="city" placeholder="От">
-        <input class="input price" type="text" placeholder="До">
+        <input class="input price" type="text" name="from" formControlName="from" placeholder="От">
+        <input class="input price" type="text" name="to" formControlName="to" placeholder="До">
       </div>
 
     </div>
     <div class="hidden" *ngIf="this.is_not_telephones">
       <div class="form-row">
         <span>Марка</span>
-        <select class="input select" name="category">
-          <option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option>
+        <select class="input select" name="mark" formControlName="mark" (change)="changeMark($event)">
+          <option *ngFor="let mark of this.systems.marks" value="{{ mark.id }}">{{ mark.title }}</option>
+
         </select>
       </div>
       <div class="form-row">
         <span>Модель</span>
-        <select class="input select" name="category">
-          <option value="'telephones'">Телефоны</option>
-          <option value="'access'">Аксессуары</option>
-          <option value="'details'">Запчасти</option>
+        <select class="input select" name="model" formControlName="model">
+          <option
+            *ngFor="let model of this.models"
+            value="{{ model.model.id }}">{{ model.model.title }}
+          </option>
         </select>
       </div>
       <div class="form-row">
         <span>Цвет</span>
-        <select class="input select" name="category">
-          <option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option>
+        <select class="input select" name="color" formControlName="color">
+          <option *ngFor="let color of this.systems.colors" value="{{ color.id }}">{{ color.title }}</option>
         </select>
       </div>
       <div class="form-row">
         <span>Объём памяти</span>
-        <select class="input select" name="category">
-          <option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option>
+        <select class="input select" name="memory" formControlName="memory">
+          <option *ngFor="let memory of this.systems.memories" value="{{ memory.id }}">{{ memory.title }}</option>
         </select>
       </div>
     </div>

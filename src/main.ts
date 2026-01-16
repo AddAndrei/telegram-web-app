@@ -4,6 +4,6 @@ import { AppComponent } from './app/app.component';
 import {SystemService} from "./app/services/system.service";
 
 const system = SystemService.getInstance();
-system.addPoints(5);
+system.getSystemOptions();
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));

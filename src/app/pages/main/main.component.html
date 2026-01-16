@@ -1,6 +1,6 @@
 <header class="header">
   <form>
-    <input type="text" placeholder='Искать' name='search'/>
+    <input type="text" (input)="this.inputSubject.next($event)" value="" placeholder='Искать' name='search'/>
     <button type='button'>
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -23,10 +23,14 @@
   </div>
 </header>
 <div class='links'>
-  <img ngSrc='/assets/images/telephones.png' (click)="testServ()" type='telephones' alt="telephones" class='image-link' height="783"
+  <img ngSrc='/assets/images/telephones.png' value="1" (click)="changeCategory(1)" type='telephones' alt="telephones"
+       class='image-link' height="783"
        width="621" priority/>
-  <img ngSrc='/assets/images/access.png' (click)="testServ()" alt="access" type='access' class='image-link' height="788" width="649" priority/>
-  <img ngSrc='/assets/images/details.png' (click)="testServ()" alt="details" type='details' class='image-link' height="781" width="527" priority/>
+  <img ngSrc='/assets/images/access.png' value="2" (click)="changeCategory(2)" alt="access" type='access'
+       class='image-link' height="788" width="649" priority/>
+  <img ngSrc='/assets/images/details.png' value="3" (click)="changeCategory(3)" alt="details" type='details'
+       class='image-link' height="781" width="527" priority/>
 </div>
 <app-products [products]=this.products></app-products>
 <app-footer></app-footer>
+

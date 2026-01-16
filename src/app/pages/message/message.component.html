@@ -1,2 +1,20 @@
-<p>message works!</p>
+<div *ngIf="this.messages.length > 0" class="context">
+  <div *ngFor="let message of this.messages" class="col">
+    <div class="row">
+      <div class="avatar">
+        <img ngSrc="{{message.sender.image}}" alt="" width="75" height="75">
+      </div>
+      <div class="row between" (click)="navigate(message.id)">
+        <div class="message">
+          <span class="sender">{{ message.sender.last_name }} {{ message.sender.last_name }}</span>
+          <span class="text">{{ truncateText(message.chat.message, 15) }}</span>
+        </div>
+        <div class="date">
+          {{ setDate(message.chat.date) }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <app-footer></app-footer>

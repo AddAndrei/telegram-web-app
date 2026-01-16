@@ -5,123 +5,93 @@
 
     </div>
   </div>
-  <form class="filter-form">
+  <form class="filter-form" [formGroup]="this.form">
     <div class="form-row">
       <span>Категория</span>
-      <select [(ngModel)]="selectedValue" (ngModelChange)="onSelectChange($event)" class="input select" name="category" id="">
-        <option value="telephones">Телефоны</option>
-        <option value="access">Аксессуары</option>
-        <option value="details">Запчасти</option>
+      <select [(ngModel)]="selectedValue" (ngModelChange)="onSelectChange($event)" class="input select" name="category" formControlName="category_id">
+        <option value="1">Телефоны</option>
+        <option value="2">Аксессуары</option>
+        <option value="3">Запчасти</option>
       </select>
     </div>
     <div class="form-row">
       <span>Город</span>
-      <input class="input" type="text" placeholder="Выбрать город" name="city">
+      <input class="{{((form.get('city')?.dirty || form.get('city')?.touched) && form.get('city')?.hasError('required')) ? 'in-err' : 'input'}}" type="text" placeholder="Выбрать город" name="city" formControlName="city">
     </div>
     <div class="form-row">
       <span>Название</span>
-      <input class="input" type="text" placeholder="Название" name="city">
-      <div class="subtext">символов 0 из 100</div>
+      <input class="{{((form.get('title')?.dirty ||
+       form.get('title')?.touched) &&
+        form.get('title')?.hasError('required')) ?
+         'in-err' :
+          'input'}}" type="text" placeholder="Название" name="title" formControlName="title" (input)="titleInput($event)">
+      <div class="subtext">символов {{ titleLength }} из 100</div>
     </div>
     <div class="form-row">
       <span>Описание</span>
-      <textarea class="textarea" rows="10" placeholder="Описание" name="city"></textarea>
-      <div class="subtext">символов 0 из 1000</div>
+      <textarea class="{{((form.get('description')?.dirty || form.get('description')?.touched) && form.get('description')?.hasError('required')) ? 'in-err-area' : 'textarea'}}"
+                rows="10"
+                placeholder="Описание"
+                name="description"
+                formControlName="description"
+                (input)="descriptionInput($event)"
+      >
+
+      </textarea>
+      <div class="subtext">символов {{ descriptionLength }} из 1000</div>
     </div>
     <div class="form-row">
       <span>Цена</span>
-      <input class="input" type="text" placeholder="Цена" name="city">
-      <div class="subtext">цена ₽</div>
+      <input class="{{((form.get('price')?.dirty ||
+       form.get('price')?.touched) &&
+        form.get('price')?.hasError('required')) ?
+         'in-err' :
+          'input'}}" type="number" placeholder="Цена" name="price" formControlName="price" (input)="priceInput($event)">
+      <div class="subtext">цена {{price}} ₽</div>
     </div>
     <div class="form-row">
       <span>Фото</span>
       <div class="subtext right">Первое фото будет отображаться в результатах поиска , выберите наиболее удачное. Можно загрузить до 10 фотографий</div>
       <label for="file" class="input label">
         <span>Загрузите фото </span>
-        <input class="input-file" type="file" id="file" accept="image/png, image/jpeg" name="city">
+        <input class="input-file" (change)="onFileSelected($event)" type="file" id="file" accept="image/png, image/jpeg" name="images" multiple>
       </label>
       <div class="subtext center">Загрузите хотя бы одно изображение товара!</div>
+    </div>
+    <div class="form-row for-images">
+      <img *ngFor="let image of images" [src]="image" class="preview-images" alt="preview" width="200" height="200" />
     </div>
     <div class="hidden" *ngIf="this.is_not_telephones">
       <div class="form-row">
         <span>Марка</span>
-        <select class="input select" name="category">
-          <option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option><option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option>
+        <select class="input select" name="mark" formControlName="mark_id" (change)="changeMark($event)">
+          <option *ngFor="let mark of this.systems.marks" value="{{ mark.id }}">{{ mark.title }}</option>
         </select>
       </div>
       <div class="form-row">
         <span>Модель</span>
-        <select class="input select" name="category">
-          <option value="'telephones'">Телефоны</option>
-          <option value="'access'">Аксессуары</option>
-          <option value="'details'">Запчасти</option>
+        <select class="input select" name="model" formControlName="model_id">
+          <option
+            *ngFor="let model of this.models"
+            value="{{ model.model.id }}">{{ model.model.title }}
+          </option>
         </select>
       </div>
       <div class="form-row">
         <span>Цвет</span>
-        <select class="input select" name="category">
-          <option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option>
+        <select class="input select" name="color" formControlName="color_id">
+          <option *ngFor="let color of this.systems.colors" value="{{ color.id }}">{{ color.title }}</option>
         </select>
       </div>
       <div class="form-row">
         <span>Объём памяти</span>
-        <select class="input select" name="category">
-          <option value="telephones">Телефоны</option>
-          <option value="access">Аксессуары</option>
-          <option value="details">Запчасти</option>
+        <select class="input select" name="memory" formControlName="memory_id">
+          <option *ngFor="let memory of this.systems.memories" value="{{ memory.id }}">{{ memory.title }}</option>
         </select>
       </div>
     </div>
     <div class="form-row">
-      <button class="button" type="button">Применить</button>
+      <button class="button" (click)="sendData()" type="button">Применить</button>
     </div>
   </form>
 </div>

@@ -14,6 +14,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (this.login.isAuth()) {
       req = req.clone({
         setHeaders: {
+          'Accept': 'application/json',
           Authorization: "Bearer " + localStorage.getItem('token')
         }
       });
