@@ -1,15 +1,18 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgOptimizedImage} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {AddGetService} from "../../services/adds/add.get.service";
 import {Subscription} from "rxjs";
+import {CarouselComponent} from "../../components/carousel/carousel.component";
 
 @Component({
   selector: 'app-product',
   standalone: true,
   imports: [
     NgOptimizedImage,
-    RouterLink
+    RouterLink,
+    CarouselComponent,
+    NgIf,
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
