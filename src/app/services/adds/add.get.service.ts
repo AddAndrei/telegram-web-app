@@ -21,8 +21,12 @@ export class AddGetService extends HttpService {
     }));
   }
 
-  getAdd(id: any): Observable<any> {
-    return this.http.get(this.url + `adds/${id}`).pipe(tap((data: any) => {
+  getAdd(id: any, device: string  = ''): Observable<any> {
+    return this.http.get(this.url + `adds/${id}`, {
+      params: {
+        device_id: device,
+      }
+    }).pipe(tap((data: any) => {
       return data;
     }));
   }

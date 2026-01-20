@@ -4,6 +4,10 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
 import {AddGetService} from "../../services/adds/add.get.service";
 import {Subscription} from "rxjs";
 import {CarouselComponent} from "../../components/carousel/carousel.component";
+import {RatingModule} from "@khajegan/ng-starrating";
+import {AddFavoriteService} from "../../services/adds/add.favorite.service";
+import {PopupComponent} from "../../components/popup/popup.component";
+import {BroswerService} from "../../services/broswer.service";
 
 @Component({
   selector: 'app-product',
@@ -13,6 +17,8 @@ import {CarouselComponent} from "../../components/carousel/carousel.component";
     RouterLink,
     CarouselComponent,
     NgIf,
+    RatingModule,
+    PopupComponent,
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.css'
@@ -23,8 +29,41 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   protected product: any;
   protected id: any | null;
+  protected date: any;
+  protected monthes: any = [
+    'января',
+    'февраля',
+    'марта',
+    'апреля',
+    'мая',
+    'июня',
+    'июля',
+    'августа',
+    'сентября',
+    'октября',
+    'ноября',
+    'декабря',
+  ];
 
-  constructor(private service: AddGetService, private route: ActivatedRoute) {
+  isPopupVisible: boolean = false;
+  protected favoriteMessage: string | null = '';
+  protected isAnswered: boolean = false;
+
+  constructor(
+    private service: AddGetService,
+    private favoriteService: AddFavoriteService,
+    private route: ActivatedRoute,
+    private device: BroswerService
+  ) {
+  }
+
+  popupClose(data: boolean): void {
+    this.isPopupVisible = data;
+    this.isAnswered = false;
+  }
+
+  showPopup() {
+    this.isPopupVisible = true;
   }
 
   ngOnDestroy(): void {
@@ -36,9 +75,11 @@ export class ProductComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       this.id = params.get('id');
-      this.aSub = this.service.getAdd(this.id).subscribe({
+      this.aSub = this.service.getAdd(this.id, this.device.getBrowserId()).subscribe({
         next: (data: any) => {
           this.product = data;
+          this.date = new Date(data.updated);
+
           console.log(this.product);
         },
         error: (error: any) => {
@@ -46,5 +87,23 @@ export class ProductComponent implements OnInit, OnDestroy {
         }
       });
     });
+  }
+
+  favorite(id: any) {
+    this.aSub = this.favoriteService.add(id).subscribe({
+      next: (data: any) => {
+        this.isAnswered = true;
+        this.favoriteMessage = data.message;
+        this.showPopup();
+        console.log(data);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+
+  onRate(event: any) {
+
   }
 }

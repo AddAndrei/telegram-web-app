@@ -1,3 +1,10 @@
-
+img{
+  height: 70dvh;
+  width: 100%;
+  position: relative;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+}
 
 
