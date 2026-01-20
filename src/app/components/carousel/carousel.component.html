@@ -1,0 +1,8 @@
+<owl-carousel-o style="border-radius: 15px" [options]="customOptions">
+  @for(slide of this.images; track images.id) {
+    <ng-template style="border-radius: 15px" carouselSlide>
+      <img [src]="slide.url" alt="">
+    </ng-template>
+  }
+</owl-carousel-o>
+
