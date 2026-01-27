@@ -12,4 +12,10 @@ export class AddFavoriteService extends HttpService {
       return data;
     }));
   }
+
+  remove(id: any): Observable<any> {
+    return this.http.get(this.url + `favorite/remove/${id}`).pipe(tap((data:any)=>{
+      return data;
+    }))
+  }
 }

@@ -1,15 +1,64 @@
-<div class="column">
+<div *ngIf="onLoaded" class="column">
   <div class="back-image">
     <img ngSrc='assets/images/profile_back.png' width="741" height="503" alt="profile-back-image">
   </div>
   <div class="user-info">
     <div class="avatar-border">
-      <img ngSrc="assets/images/profile_back.png" width="170" height="170" alt="">
+      <img ngSrc="assets/images/profile_back.png" priority width="741" height="503" alt="">
+    </div>
+    <div class="fio">
+      {{ profileData.profile.last_name }} {{ profileData.profile.name }}
+    </div>
+    <div class="hr"></div>
+    <div class="row">
+      <div class="col">
+        <span>{{ profileData.profile.rating }}</span>
+        <span>Рейтинг</span>
+      </div>
+      <div class="col">
+        <span>{{ profileData.profile.reviews }}</span>
+        <span>Отзывы</span>
+      </div>
+      <div class="col">
+        <span>{{ profileData.adds }}</span>
+        <span>Объявлений</span>
+      </div>
     </div>
   </div>
-  <div class="fio">
-    Щербаков Андрей
+  <div class="options">
+    <div class="options-row">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+           class="lucide lucide-log-out-icon lucide-log-out">
+        <path d="m16 17 5-5-5-5"/>
+        <path d="M21 12H9"/>
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+      </svg>
+      <span>Выйти</span>
+    </div>
+
   </div>
-  <div class="hr"></div>
+  @if (this.reviews) {
+    <div *ngFor="let review of this.reviews.data" class="reviews">
+      <div class="row between">
+        <div class="avatar-with-name">
+          <img (click)="goToProfile(review.user.id)" ngSrc="/assets/images/profile_back.png" alt="" width="50" height="50">
+          <div class="user-data">
+            <span>{{ review.user.profile.last_name }} {{ review.user.profile.name }}</span>
+            <div class="rating">
+              <star-rating [value]=review.rate [totalstars]=5 checkedcolor="orange" uncheckedcolor="black"
+                           size="24px" [readonly]=true (rate)="onRate($event)"></star-rating>
+            </div>
+          </div>
+        </div>
+        <div class="date">
+          {{ getDate(review.date) }}
+        </div>
+      </div>
+      <div class="row bel">
+        {{ review.text }}
+      </div>
+    </div>
+  }
 </div>
 <app-footer></app-footer>

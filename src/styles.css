@@ -31,3 +31,15 @@ main{
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.heart{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 3;
+}
+.lucide-heart{
+  width: 30px;
+  height: 30px;
+  color: #F07427;
+  z-index: 3;
+}

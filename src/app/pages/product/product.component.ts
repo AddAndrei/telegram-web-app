@@ -5,7 +5,7 @@ import {AddGetService} from "../../services/adds/add.get.service";
 import {Subscription} from "rxjs";
 import {CarouselComponent} from "../../components/carousel/carousel.component";
 import {RatingModule} from "@khajegan/ng-starrating";
-import {AddFavoriteService} from "../../services/adds/add.favorite.service";
+import {AddFavoriteService} from "../../services/favorite/add.favorite.service";
 import {PopupComponent} from "../../components/popup/popup.component";
 import {BroswerService} from "../../services/broswer.service";
 
@@ -79,8 +79,6 @@ export class ProductComponent implements OnInit, OnDestroy {
         next: (data: any) => {
           this.product = data;
           this.date = new Date(data.updated);
-
-          console.log(this.product);
         },
         error: (error: any) => {
           console.log(error);

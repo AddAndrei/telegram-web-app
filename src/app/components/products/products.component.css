@@ -54,15 +54,6 @@
   height: 680px;
   border-radius: 5%;
 }
-.lucide-heart{
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  width: 30px;
-  height: 30px;
-  color: #F07427;
-  z-index: 3;
-}
 .favorite{
   color: aquamarine;
 }

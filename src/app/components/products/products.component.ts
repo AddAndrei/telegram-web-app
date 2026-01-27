@@ -3,7 +3,7 @@ import {MatGridList, MatGridTile} from "@angular/material/grid-list";
 import {MatCard, MatCardImage} from "@angular/material/card";
 import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {Subscription} from "rxjs";
-import {AddFavoriteService} from "../../services/adds/add.favorite.service";
+import {AddFavoriteService} from "../../services/favorite/add.favorite.service";
 import {PopupComponent} from "../popup/popup.component";
 import {Router} from "@angular/router";
 
@@ -25,6 +25,7 @@ import {Router} from "@angular/router";
 })
 export class ProductsComponent implements OnInit, OnDestroy {
   @Input() products: any;
+  @Input() isFavorite: boolean = false;
   aSub: Subscription | undefined;
   isPopupVisible: boolean = false;
   protected favoriteMessage: string | null = '';
@@ -50,6 +51,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+  }
+
+  remove(id: any) {
+    this.service.remove(id).subscribe({
+      next: (data: any) => {
+        this.products = this.products.filter((item: any) => item.id !== id);
+        this.isAnswered = true;
+        this.favoriteMessage = data.message;
+        this.showPopup();
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
   }
 
   favorite(id: any) {
