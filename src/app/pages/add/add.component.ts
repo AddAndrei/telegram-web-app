@@ -46,12 +46,14 @@ export class AddComponent implements OnInit, OnDestroy {
   });
 
   sendData(): void {
+    this.form.disable();
     this.form.patchValue({
       price: String(this.form.get('price')?.value)
     });
 
     this.addAsub = this.addService.store(this.form).subscribe({
       next: (data: any) => {
+        this.form.enable();
         console.log(data);
       },
       error: (error: any) => {
@@ -144,5 +146,9 @@ export class AddComponent implements OnInit, OnDestroy {
 
   priceInput($event: any) {
     this.price = $event.target.value;
+  }
+
+  searchCity($event: any) {
+
   }
 }

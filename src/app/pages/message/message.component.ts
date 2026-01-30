@@ -34,6 +34,7 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
   aSub: Subscription | undefined;
   protected messages: any = [];
+  protected onLoaded: boolean = false;
 
   constructor(private service: GetMessagesService, private router: Router) {
   }
@@ -72,6 +73,7 @@ export class MessageComponent implements OnInit, OnDestroy {
     this.aSub = this.service.getMessages().subscribe({
       next: (data: any) => {
         this.messages = data.data;
+        this.onLoaded = true;
         console.log(this.messages);
       },
       error: (error: any) => {

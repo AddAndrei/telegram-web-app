@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NgIf, NgOptimizedImage} from "@angular/common";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {NgIf, NgOptimizedImage, Location} from "@angular/common";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AddGetService} from "../../services/adds/add.get.service";
 import {Subscription} from "rxjs";
 import {CarouselComponent} from "../../components/carousel/carousel.component";
@@ -14,7 +14,6 @@ import {BroswerService} from "../../services/broswer.service";
   standalone: true,
   imports: [
     NgOptimizedImage,
-    RouterLink,
     CarouselComponent,
     NgIf,
     RatingModule,
@@ -44,7 +43,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     'ноября',
     'декабря',
   ];
-
+  protected onLoaded: boolean = false;
   isPopupVisible: boolean = false;
   protected favoriteMessage: string | null = '';
   protected isAnswered: boolean = false;
@@ -53,13 +52,19 @@ export class ProductComponent implements OnInit, OnDestroy {
     private service: AddGetService,
     private favoriteService: AddFavoriteService,
     private route: ActivatedRoute,
-    private device: BroswerService
+    private device: BroswerService,
+    private router: Router,
+    private location: Location
   ) {
   }
 
   popupClose(data: boolean): void {
     this.isPopupVisible = data;
     this.isAnswered = false;
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   showPopup() {
@@ -79,6 +84,7 @@ export class ProductComponent implements OnInit, OnDestroy {
         next: (data: any) => {
           this.product = data;
           this.date = new Date(data.updated);
+          this.onLoaded = true;
         },
         error: (error: any) => {
           console.log(error);
@@ -93,7 +99,6 @@ export class ProductComponent implements OnInit, OnDestroy {
         this.isAnswered = true;
         this.favoriteMessage = data.message;
         this.showPopup();
-        console.log(data);
       },
       error: (error: any) => {
         console.log(error);
@@ -103,5 +108,12 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   onRate(event: any) {
 
+  }
+
+  goToProfile(id: any) {
+    const myId = localStorage.getItem('id');
+    if (id != myId) {
+      this.router.navigate(["/profile", id]);
+    }
   }
 }

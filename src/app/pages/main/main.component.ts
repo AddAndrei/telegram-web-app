@@ -1,6 +1,6 @@
 import {Component, HostListener, inject, OnDestroy, OnInit} from '@angular/core';
 import {LucideAngularModule} from "lucide-angular";
-import {NgForOf, NgOptimizedImage} from "@angular/common";
+import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {FilterComponent} from "../../components/filter/filter.component";
 import {MatDialog} from '@angular/material/dialog';
 import {FooterComponent} from "../../components/footer/footer.component";
@@ -12,7 +12,7 @@ import {debounceTime, Subject, Subscription} from "rxjs";
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [LucideAngularModule, NgOptimizedImage, FilterComponent, FooterComponent, ProductsComponent, NgForOf],
+  imports: [LucideAngularModule, NgOptimizedImage, FilterComponent, FooterComponent, ProductsComponent, NgForOf, NgIf],
   templateUrl: './main.component.html',
   styleUrl: './main.component.css'
 })
@@ -21,7 +21,7 @@ export class MainComponent implements OnInit, OnDestroy {
 
   readonly dialog = inject(MatDialog);
   aSub: Subscription | undefined;
-
+  protected onLoaded: boolean = false;
 
   filters: any = {
     filters: [{
@@ -35,14 +35,15 @@ export class MainComponent implements OnInit, OnDestroy {
 
   pageHeight: number = 0;
   halfPage: number = 0;
+  baseHeight: number = 0;
 
   //pagination
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (scrollPosition >= this.pageHeight - this.halfPage) {
-      this.pageHeight = (this.pageHeight * 2);
       this.filters.page++;
+      this.pageHeight = (this.baseHeight * this.filters.page);
       this.getAddsByCategory(true);
     }
   }
@@ -60,6 +61,7 @@ export class MainComponent implements OnInit, OnDestroy {
       document.documentElement.offsetHeight,
       document.documentElement.clientHeight
     );
+    this.baseHeight = this.pageHeight;
     this.halfPage = (this.pageHeight / 2);
     this.inputSubject.pipe(debounceTime(1000)).subscribe(value => {
       this.handleInput(value)
@@ -89,6 +91,7 @@ export class MainComponent implements OnInit, OnDestroy {
   getAddsByCategory(add: boolean = false) {
     this.aSub = this.add.getAdds(this.filters).subscribe({
       next: (data: any) => {
+        this.onLoaded = true;
         this.setProducts(data.data, add);
       },
       error: (error) => {
@@ -115,13 +118,7 @@ export class MainComponent implements OnInit, OnDestroy {
     }
     this.filters.page = 1;
     this.filters.filters[0].value = categoryId;
-    this.pageHeight = Math.max(
-      document.body.scrollHeight,
-      document.documentElement.scrollHeight,
-      document.body.offsetHeight,
-      document.documentElement.offsetHeight,
-      document.documentElement.clientHeight
-    );
+    this.pageHeight = this.baseHeight;
     this.getAddsByCategory(false);
   }
 

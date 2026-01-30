@@ -4,7 +4,7 @@ import {Subscription} from "rxjs";
 import {ReviewService} from "../../services/reviews/review.service";
 import {RatingModule, StarRatingComponent} from "@khajegan/ng-starrating";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgIf} from "@angular/common";
+import {Location, NgIf} from "@angular/common";
 import {PopupComponent} from "../../components/popup/popup.component";
 
 @Component({
@@ -22,7 +22,7 @@ import {PopupComponent} from "../../components/popup/popup.component";
 })
 export class ReviewComponent implements OnInit, OnDestroy {
   form: FormGroup = new FormGroup({
-    review: new FormControl(null,[
+    review: new FormControl(null, [
       Validators.required
     ]),
   });
@@ -34,9 +34,11 @@ export class ReviewComponent implements OnInit, OnDestroy {
   isPopupVisible: boolean = false;
   protected favoriteMessage: string | null = '';
   protected isAnswered: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
-    private service: ReviewService
+    private service: ReviewService,
+    private location: Location,
   ) {
   }
 
@@ -79,14 +81,18 @@ export class ReviewComponent implements OnInit, OnDestroy {
         this.isAnswered = true;
         this.favoriteMessage = 'Отзыв успешно оставлен';
         this.showPopup();
-        console.log(data);
       },
       error: (error: any) => {
         this.isAnswered = true;
-        this.favoriteMessage = error.error.error;
+        this.favoriteMessage = error.error.data.errors.message;
         this.showPopup();
+
       }
 
     });
+  }
+
+  goBack() {
+    this.location.back();
   }
 }

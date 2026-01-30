@@ -93,4 +93,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   onRate($event: { oldValue: number; newValue: number; starRating: StarRatingComponent }) {
 
   }
+
+  logout() {
+    this.profile.logout().subscribe({
+      next: (data: any) => {
+        this.router.navigate(["/login"]);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
 }

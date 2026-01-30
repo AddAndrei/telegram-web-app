@@ -10,14 +10,23 @@ export class LoginService extends HttpService {
   private token: string | null = null;
 
   send(data: any): Observable<any> {
+    data.phone = data.phone.replace(/[()\-\s]/g, "");
     return this.http.get(this.url + "login", {
       params: data,
-      headers:{
-        'Content-Type':'application/json',
+      headers: {
+        'Content-Type': 'application/json',
       }
     }).pipe(tap((data: any) => {
       localStorage.setItem('token', data.token);
       localStorage.setItem('id', data.profile.id);
+    }));
+  }
+
+  register(data: any): Observable<any> {
+    return this.http.post(this.url + "register", data).pipe(tap((data: any) => {
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('id', data.profile.id);
+      return data;
     }));
   }
 

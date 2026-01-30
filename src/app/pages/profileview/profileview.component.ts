@@ -2,10 +2,11 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {ProfileService} from "../../services/profile/profile.service";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 import {FooterComponent} from "../../components/footer/footer.component";
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {Location, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {RatingModule, StarRatingComponent} from "@khajegan/ng-starrating";
+import {CreateDialogService} from "../../services/chats/create.dialog.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-profileview',
@@ -27,7 +28,12 @@ export class ProfileviewComponent implements OnInit, OnDestroy {
   protected onLoaded: boolean = false;
   protected id: any;
 
-  constructor(private route: ActivatedRoute, private service: ProfileService, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private service: ProfileService,
+    private router: Router,
+    private location: Location,
+    private dialog: CreateDialogService) {
   }
 
   ngOnDestroy(): void {
@@ -52,7 +58,23 @@ export class ProfileviewComponent implements OnInit, OnDestroy {
     });
   }
 
+  goBack() {
+    this.location.back();
+  }
+
   toReview() {
     this.router.navigate(['/review', this.profileData.profile.id]);
+  }
+
+  createOrGoToDialog(id: any) {
+    this.dialog.createDialog(id).subscribe({
+      next: (data: any) => {
+        this.router.navigate(['/dialog', data.id]);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    })
+
   }
 }

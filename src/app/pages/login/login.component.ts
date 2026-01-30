@@ -1,18 +1,16 @@
-import {Component, Injectable, input, OnDestroy, OnInit} from '@angular/core';
-
+import {Component, Injectable, OnDestroy, OnInit} from '@angular/core';
 import {LoginService} from "../../services/login/login.service";
-
 import {HttpClientModule} from "@angular/common/http";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {error} from "@angular/compiler-cli/src/transformers/util";
-import {ActivatedRoute, Params, Router} from "@angular/router";
+import {ActivatedRoute, Params, Router, RouterLink} from "@angular/router";
 import {NgIf} from "@angular/common";
+import {InputMaskDirective} from "../../directs/input.mask.directive";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [HttpClientModule, FormsModule, ReactiveFormsModule, NgIf],
+  imports: [HttpClientModule, FormsModule, ReactiveFormsModule, NgIf, InputMaskDirective, RouterLink],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -22,7 +20,7 @@ import {NgIf} from "@angular/common";
 export class LoginComponent implements OnInit, OnDestroy {
 
   form: FormGroup = new FormGroup({
-    phone: new FormControl("", [
+    phone: new FormControl("+7", [
       Validators.required,
     ]),
     password: new FormControl("", [
@@ -81,4 +79,6 @@ export class LoginComponent implements OnInit, OnDestroy {
       })
     }
   }
+
+  protected readonly String = String;
 }
