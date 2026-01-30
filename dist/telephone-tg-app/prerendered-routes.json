@@ -5,6 +5,7 @@
     "/favorites",
     "/login",
     "/messages",
-    "/profile"
+    "/profile",
+    "/register"
   ]
 }
