@@ -99,7 +99,7 @@ export class DialogComponent implements OnInit, OnDestroy, AfterViewInit {
           console.log(error);
         }
       });
-      this.wsSub = this.ws.connect(`ws://boyword:8080/?token=${this.myId}`).subscribe(
+      this.wsSub = this.ws.connect(`ws://194.87.104.120:8080/?token=${this.myId}`).subscribe(
         msg => console.log(msg),
         err => console.error(err),
         () => console.log('Connection closed')

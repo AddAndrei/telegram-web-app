@@ -20,4 +20,11 @@ export class ProfileService extends HttpService {
       return data;
     }));
   }
+
+  logout(): Observable<any> {
+    return this.http.post(this.url + "logout",{}).pipe(tap((data: any) => {
+      localStorage.clear();
+      return data;
+    }));
+  }
 }

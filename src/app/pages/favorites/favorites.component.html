@@ -1,5 +1,5 @@
-<header class="header">
-  <div *ngIf="!this.products" class="favorites">
+<header *ngIf="onLoaded" class="header">
+  <div *ngIf="this.products.length == 0" class="favorites">
     У вас нет ничего в избранном!
   </div>
 </header>

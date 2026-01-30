@@ -10,6 +10,7 @@ import {DialogComponent} from "./components/dialog/dialog.component";
 import {ProductComponent} from "./pages/product/product.component";
 import {ProfileviewComponent} from "./pages/profileview/profileview.component";
 import {ReviewComponent} from "./pages/review/review.component";
+import {RegisterComponent} from "./pages/register/register.component";
 
 export const routes: Routes = [
   {path: '', component: MainComponent, pathMatch: 'full', canActivate: [AuthGuard]},
@@ -21,5 +22,6 @@ export const routes: Routes = [
   {path: 'messages', component: MessageComponent, canActivate: [AuthGuard]},
   {path: 'dialog/:id', component: DialogComponent, canActivate: [AuthGuard]},
   {path: 'product/:id', component: ProductComponent, canActivate: [AuthGuard]},
-  {path: 'login', component: LoginComponent}
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent}
 ];

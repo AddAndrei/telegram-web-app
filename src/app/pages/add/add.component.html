@@ -16,7 +16,10 @@
     </div>
     <div class="form-row">
       <span>Город</span>
-      <input class="{{((form.get('city')?.dirty || form.get('city')?.touched) && form.get('city')?.hasError('required')) ? 'in-err' : 'input'}}" type="text" placeholder="Выбрать город" name="city" formControlName="city">
+      <input class="{{((form.get('city')?.dirty || form.get('city')?.touched) && form.get('city')?.hasError('required')) ? 'in-err' : 'input'}}"
+             type="text"
+             placeholder="Выбрать город"
+             name="city" (input)="searchCity($event)" formControlName="city">
     </div>
     <div class="form-row">
       <span>Название</span>

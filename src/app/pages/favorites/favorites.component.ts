@@ -20,9 +20,10 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   inputSubject: Subject<any> = new Subject<any>();
   public products: any = [];
   aSub: Subscription | undefined;
-
+  protected onLoaded: boolean = false;
   pageHeight: number = 0;
   halfPage: number = 0;
+  baseHeight: number = 0;
   filters: any = {
     page: 1,
   }
@@ -34,8 +35,8 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   onWindowScroll() {
     const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
     if (scrollPosition >= this.pageHeight - this.halfPage) {
-      this.pageHeight = (this.pageHeight * 2);
       this.filters.page++;
+      this.pageHeight = (this.baseHeight * this.filters.page);
       this.getAddsByCategory(true);
     }
   }
@@ -56,6 +57,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
       document.documentElement.offsetHeight,
       document.documentElement.clientHeight
     );
+    this.baseHeight = this.pageHeight;
     this.halfPage = (this.pageHeight / 2);
   }
 
@@ -63,8 +65,7 @@ export class FavoritesComponent implements OnInit, OnDestroy {
   getAddsByCategory(add: boolean = false) {
     this.aSub = this.service.getFavoriteAdds(this.filters).subscribe({
       next: (data: any) => {
-        console.log(data);
-        console.log(this.filters);
+        this.onLoaded = true;
         this.setProducts(data.data, add);
       },
       error: (error: any) => {

@@ -1,10 +1,14 @@
 <div class="login">
+  <div class="form-row">
+    <span class="head">Telephone</span>
+  </div>
   <form action="" [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="form-row">
       <div *ngIf="error" class="error up">{{this.error}}</div>
       <input class="{{((phone?.dirty || phone?.touched) && phone?.hasError('required')) ? 'in-err' : 'input'}}"
-             type="text"
-             placeholder="логин"
+             type="tel"
+             [inputMask]="'+7 (000)-000-00-00'"
+             placeholder="+7 (___) ___-__-__"
              formControlName="phone"
              name="phone"
       >
@@ -35,4 +39,7 @@
       <button [disabled]="form.disabled" class="button" type="submit">Войти</button>
     </div>
   </form>
+  <div class="form-row">
+    <button type="button" routerLink="/register" class="link">Зарегистрироваться</button>
+  </div>
 </div>

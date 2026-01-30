@@ -1,6 +1,6 @@
-<div class="product">
+<div *ngIf="onLoaded" class="product">
   <header class="header">
-    <svg routerLink="/" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+    <svg (click)="goBack()" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
          fill="none" stroke="currentColor"
          stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
          class="lucide lucide-chevron-left-icon lucide-chevron-left">
@@ -13,15 +13,22 @@
 
   <div class="info">
     <div class="row">
-      <div class="avatar">
-        <img ngSrc="/assets/images/not-avatar.jpg" alt="" width="75" height="75">
-      </div>
+      @if (product.user.profile.image) {
+        <div class="avatar">
+          <img ngSrc="{{ product.user.profile.image }}" (click)="goToProfile(product.user.id)" alt="avatar" width="50" height="50" priority>
+        </div>
+      } @else {
+        <div class="avatar">
+          <img ngSrc="/assets/images/not-avatar.jpg" (click)="goToProfile(product.user.id)" alt="" width="980" height="966">
+        </div>
+      }
+
       <div class="user">
         {{ product.user.profile.last_name }} {{ product.user.profile.name }}
       </div>
       <div class="rating">
         <star-rating [value]=product.user.profile.rating [totalstars]=5 checkedcolor="orange" uncheckedcolor="black"
-                     size="24px" [readonly]=false (rate)="onRate($event)"></star-rating>
+                     size="24px" [readonly]=true (rate)="onRate($event)"></star-rating>
       </div>
     </div>
     <div class="row between top">

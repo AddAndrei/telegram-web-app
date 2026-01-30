@@ -1,11 +1,18 @@
 <div *ngIf="onLoaded" class="column">
   <div class="back-image">
-    <img ngSrc='assets/images/profile_back.png' width="741" height="503" alt="profile-back-image">
+    <img ngSrc='assets/images/profile_back.png' width="741" priority height="503" alt="profile-back-image">
   </div>
   <div class="user-info">
-    <div class="avatar-border">
-      <img ngSrc="assets/images/profile_back.png" priority width="741" height="503" alt="">
-    </div>
+    @if (profileData.profile.image) {
+      <div class="avatar-border">
+        <img ngSrc="{{profileData.profile.image}}" priority width="741" height="503" alt="">
+      </div>
+    } @else {
+      <div class="avatar-border">
+        <img ngSrc="assets/images/not-avatar.jpg" priority width="741" height="503" alt="">
+      </div>
+    }
+
     <div class="fio">
       {{ profileData.profile.last_name }} {{ profileData.profile.name }}
     </div>
@@ -27,14 +34,14 @@
   </div>
   <div class="options">
     <div class="options-row">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      <svg (click)="logout()"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
            class="lucide lucide-log-out-icon lucide-log-out">
         <path d="m16 17 5-5-5-5"/>
         <path d="M21 12H9"/>
         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
       </svg>
-      <span>Выйти</span>
+      <span (click)="logout()">Выйти</span>
     </div>
 
   </div>
@@ -42,7 +49,7 @@
     <div *ngFor="let review of this.reviews.data" class="reviews">
       <div class="row between">
         <div class="avatar-with-name">
-          <img (click)="goToProfile(review.user.id)" ngSrc="/assets/images/profile_back.png" alt="" width="50" height="50">
+          <img (click)="goToProfile(review.user.id)" ngSrc="/assets/images/profile_back.png" priority alt="" width="50" height="50">
           <div class="user-data">
             <span>{{ review.user.profile.last_name }} {{ review.user.profile.name }}</span>
             <div class="rating">
