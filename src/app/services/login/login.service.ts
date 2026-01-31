@@ -17,15 +17,20 @@ export class LoginService extends HttpService {
         'Content-Type': 'application/json',
       }
     }).pipe(tap((data: any) => {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('id', data.profile.id);
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('id', data.profile.id);
+      }
+
     }));
   }
 
   register(data: any): Observable<any> {
     return this.http.post(this.url + "register", data).pipe(tap((data: any) => {
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('id', data.profile.id);
+      if (typeof localStorage !== 'undefined') {
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('id', data.profile.id);
+      }
       return data;
     }));
   }
@@ -39,11 +44,16 @@ export class LoginService extends HttpService {
   }
 
   isAuth(): boolean {
-    return localStorage.getItem('token') != null;
+    if (typeof localStorage !== 'undefined') {
+      return localStorage.getItem('token') != null;
+    }
+    return false;
   }
 
   logout(): void {
     this.setToken(null);
-    localStorage.clear();
+    if (typeof localStorage !== 'undefined') {
+      localStorage.clear();
+    }
   }
 }

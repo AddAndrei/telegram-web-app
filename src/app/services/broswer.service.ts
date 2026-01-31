@@ -7,12 +7,15 @@ export class BroswerService {
   private readonly storageKey = 'browser-unique-id';
 
   public getBrowserId(): string {
-    let id = localStorage.getItem(this.storageKey);
-    if (!id) {
-      id = this.generateUUID();
-      localStorage.setItem(this.storageKey, id);
+    if(typeof localStorage !== 'undefined') {
+      let id = localStorage.getItem(this.storageKey);
+      if (!id) {
+        id = this.generateUUID();
+        localStorage.setItem(this.storageKey, id);
+      }
+      return id;
     }
-    return id;
+    return this.generateUUID();
   }
 
   private generateUUID(): string {
