@@ -14,6 +14,7 @@ import {ActivatedRoute, RouterLink} from "@angular/router";
 import {GetDialogService} from "../../services/chats/get.dialog.service";
 import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {WebSocketService} from "../../services/socket/web.socket.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-dialog',
@@ -52,8 +53,9 @@ export class DialogComponent implements OnInit, OnDestroy, AfterViewInit {
     private route: ActivatedRoute,
     private service: GetDialogService,
     private ws: WebSocketService,
+    private storage:StorageService,
   ) {
-    this.myId = localStorage.getItem('id')
+    this.myId = this.storage.getItem('id')
   }
 
   ngAfterViewInit(): void {

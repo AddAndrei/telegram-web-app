@@ -8,6 +8,7 @@ import {RatingModule} from "@khajegan/ng-starrating";
 import {AddFavoriteService} from "../../services/favorite/add.favorite.service";
 import {PopupComponent} from "../../components/popup/popup.component";
 import {BroswerService} from "../../services/broswer.service";
+import {StorageService} from "../../services/storage.service";
 
 @Component({
   selector: 'app-product',
@@ -54,7 +55,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private device: BroswerService,
     private router: Router,
-    private location: Location
+    private location: Location,
+    private storage:StorageService
   ) {
   }
 
@@ -111,7 +113,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   goToProfile(id: any) {
-    const myId = localStorage.getItem('id');
+    const myId = this.storage.getItem('id');
     if (id != myId) {
       this.router.navigate(["/profile", id]);
     }

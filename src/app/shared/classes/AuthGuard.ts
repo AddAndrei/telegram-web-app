@@ -9,16 +9,17 @@ import {
 import {LoginService} from "../../services/login/login.service";
 import {Observable, of} from "rxjs";
 import {Injectable} from "@angular/core";
+import {StorageService} from "../../services/storage.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
-  constructor(private login:LoginService, private router: Router) {
+  constructor(private router: Router, private storage: StorageService) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean>  {
-    if (this.login.isAuth()) {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    if (this.storage.isAuth()) {
       return of(true);
     } else {
       void this.router.navigate(['login']);

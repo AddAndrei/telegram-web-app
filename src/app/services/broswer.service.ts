@@ -1,18 +1,20 @@
 import {Injectable} from "@angular/core";
+import {StorageService} from "./storage.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class BroswerService {
+  constructor(private storage: StorageService) {
+  }
+
   private readonly storageKey = 'browser-unique-id';
 
   public getBrowserId(): string {
-    if(typeof localStorage !== 'undefined') {
-      let id = localStorage.getItem(this.storageKey);
-      if (!id) {
-        id = this.generateUUID();
-        localStorage.setItem(this.storageKey, id);
-      }
+    let id = this.storage.getItem(this.storageKey);
+    if (!id) {
+      id = this.generateUUID();
+      this.storage.setItem(this.storageKey, id);
       return id;
     }
     return this.generateUUID();

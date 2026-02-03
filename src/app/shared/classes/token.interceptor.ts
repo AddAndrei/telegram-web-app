@@ -1,21 +1,21 @@
-import {LoginService} from "../../services/login/login.service";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Injectable} from "@angular/core";
+import {StorageService} from "../../services/storage.service";
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(private login: LoginService) {
 
+  constructor(private storage: StorageService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    if (this.login.isAuth()) {
+    if (this.storage.isAuth()) {
       req = req.clone({
         setHeaders: {
           'Accept': 'application/json',
-          Authorization: "Bearer " + localStorage.getItem('token')
+          Authorization: "Bearer " + this.storage.getItem('token')
         }
       });
     }

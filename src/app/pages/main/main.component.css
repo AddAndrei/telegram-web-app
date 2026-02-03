@@ -138,7 +138,14 @@ button.filters {
     height: 30dvh;
   }
 }
-
+@media (max-width: 600px) {
+  .item > img {
+    height: 20dvh;
+  }
+  .image-link {
+    height: 20dvh;
+  }
+}
 @media (max-width: 480px) {
   .image-link {
     height: 20dvh;

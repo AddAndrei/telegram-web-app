@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {Router} from "@angular/router";
+import {StorageService} from "./storage.service";
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class HttpService {
   protected url: string = "http://boyword:81/api/";
   protected browserUrl: string = "http://194.87.104.120:7777/phone.back.ru/api/"
 
-  constructor(protected http: HttpClient, private router: Router) {
+  constructor(protected http: HttpClient, private router: Router, protected storage: StorageService) {
     this.url = (this.is_dev) ? this.url : this.browserUrl;
   }
 
