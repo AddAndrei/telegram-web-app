@@ -11,6 +11,7 @@ export class LoginService extends HttpService {
 
   send(data: any): Observable<any> {
     data.phone = data.phone.replace(/[()\-\s]/g, "");
+    data.phone = data.phone.replace('+7', "");
     return this.http.get(this.url + "login", {
       params: data,
       headers: {
