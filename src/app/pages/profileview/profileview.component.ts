@@ -49,7 +49,6 @@ export class ProfileviewComponent implements OnInit, OnDestroy {
         next: (data: any) => {
           this.profileData = data;
           this.onLoaded = true;
-          console.log(this.profileData);
         },
         error: (error: any) => {
           console.log(error);
@@ -74,7 +73,7 @@ export class ProfileviewComponent implements OnInit, OnDestroy {
       error: (error: any) => {
         console.log(error);
       }
-    })
+    });
 
   }
 }

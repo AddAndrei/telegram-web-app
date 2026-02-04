@@ -9,6 +9,7 @@ import {AddFavoriteService} from "../../services/favorite/add.favorite.service";
 import {PopupComponent} from "../../components/popup/popup.component";
 import {BroswerService} from "../../services/broswer.service";
 import {StorageService} from "../../services/storage.service";
+import {CreateDialogService} from "../../services/chats/create.dialog.service";
 
 @Component({
   selector: 'app-product',
@@ -26,7 +27,7 @@ import {StorageService} from "../../services/storage.service";
 export class ProductComponent implements OnInit, OnDestroy {
 
   aSub: Subscription | undefined;
-
+  fSub: Subscription | undefined;
   protected product: any;
   protected id: any | null;
   protected date: any;
@@ -56,7 +57,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     private device: BroswerService,
     private router: Router,
     private location: Location,
-    private storage:StorageService
+    private storage: StorageService,
+    private dialog: CreateDialogService
   ) {
   }
 
@@ -77,10 +79,14 @@ export class ProductComponent implements OnInit, OnDestroy {
     if (this.aSub) {
       this.aSub.unsubscribe();
     }
+    if(this.fSub) {
+      this.fSub.unsubscribe();
+    }
   }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
+      console.log(params.get('id'));
       this.id = params.get('id');
       this.aSub = this.service.getAdd(this.id, this.device.getBrowserId()).subscribe({
         next: (data: any) => {
@@ -96,7 +102,7 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   favorite(id: any) {
-    this.aSub = this.favoriteService.add(id).subscribe({
+    this.fSub = this.favoriteService.add(id).subscribe({
       next: (data: any) => {
         this.isAnswered = true;
         this.favoriteMessage = data.message;
@@ -110,6 +116,17 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   onRate(event: any) {
 
+  }
+
+  createOrGoToDialog(id: any) {
+    this.dialog.createDialog(id).subscribe({
+      next: (data: any) => {
+        this.router.navigate(['/dialog', data.id]);
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    })
   }
 
   goToProfile(id: any) {

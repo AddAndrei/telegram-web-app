@@ -4,7 +4,7 @@ import {
   CanActivateChild, GuardResult,
   MaybeAsync,
   Router,
-  RouterStateSnapshot
+  RouterStateSnapshot, UrlTree
 } from "@angular/router";
 import {LoginService} from "../../services/login/login.service";
 import {Observable, of} from "rxjs";
@@ -18,16 +18,15 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(private router: Router, private storage: StorageService) {
   }
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+  canActivate():Observable<boolean> | boolean | UrlTree {
     if (this.storage.isAuth()) {
-      return of(true);
+      return true;
     } else {
-      void this.router.navigate(['login']);
-      return of(false);
+      return this.router.createUrlTree(['login']);
     }
   }
 
   canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): MaybeAsync<GuardResult> {
-    return this.canActivate(childRoute, state);
+    return this.canActivate();
   }
 }

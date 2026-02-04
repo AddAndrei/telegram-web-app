@@ -18,7 +18,7 @@ export class HttpService {
 
   errorHandle(error: any) {
     if (error.status === 401 || error.error.message === 'Unauthenticated.') {
-      this.router.navigate(['/login']);
+      //this.router.navigate(['/login']);
     }
   }
 

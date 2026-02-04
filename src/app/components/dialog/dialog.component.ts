@@ -12,7 +12,7 @@ import {FooterComponent} from "../footer/footer.component";
 import {Subscription} from "rxjs";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {GetDialogService} from "../../services/chats/get.dialog.service";
-import {AsyncPipe, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf, Location, NgOptimizedImage} from "@angular/common";
 import {WebSocketService} from "../../services/socket/web.socket.service";
 import {StorageService} from "../../services/storage.service";
 
@@ -53,7 +53,8 @@ export class DialogComponent implements OnInit, OnDestroy, AfterViewInit {
     private route: ActivatedRoute,
     private service: GetDialogService,
     private ws: WebSocketService,
-    private storage:StorageService,
+    private storage: StorageService,
+    private location: Location
   ) {
     this.myId = this.storage.getItem('id')
   }
@@ -82,6 +83,10 @@ export class DialogComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  goBack(): void {
+    this.location.back();
+  }
+
   getTime(dateMessage: any): string {
     let date: Date = new Date(dateMessage);
     let hours = (date.getHours() < 10) ? `0${date.getHours()}` : date.getHours();
@@ -96,6 +101,7 @@ export class DialogComponent implements OnInit, OnDestroy, AfterViewInit {
         next: (data: any) => {
           this.data = data.data;
           this.onloadData = true;
+          console.log(data);
         },
         error: (error: any) => {
           console.log(error);

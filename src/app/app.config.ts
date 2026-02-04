@@ -13,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi(), withFetch()),
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    provideRouter(routes),
+    provideRouter(routes, withDebugTracing()),
   ]
 };

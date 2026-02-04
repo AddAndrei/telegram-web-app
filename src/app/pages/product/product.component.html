@@ -102,7 +102,7 @@
       </div>
     </div>
   </div>
-  <button class="button" type="button">Написать</button>
+  <button class="button" (click)="createOrGoToDialog(this.product.user.profile.id)" type="button">Написать</button>
 </div>
 
 <app-popup *ngIf="isAnswered" [visible]="isPopupVisible" (dataEmitter)="popupClose($event)">

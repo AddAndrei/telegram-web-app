@@ -95,7 +95,7 @@ export class MainComponent implements OnInit, OnDestroy {
         this.setProducts(data.data, add);
       },
       error: (error) => {
-        this.add.errorHandle(error);
+        //this.add.errorHandle(error);
       }
     });
   }
