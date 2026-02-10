@@ -101,5 +101,7 @@
 
 
 
-
+<app-popup *ngIf="isAnswered" [visible]="isPopupVisible" (dataEmitter)="popupClose($event)">
+  <p>{{ this.favoriteMessage }}</p>
+</app-popup>
 <app-footer></app-footer>

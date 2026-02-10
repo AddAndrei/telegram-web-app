@@ -1,10 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FooterComponent} from "../../components/footer/footer.component";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
+import {Location, NgForOf, NgIf, NgOptimizedImage} from "@angular/common";
 import {Subscription} from "rxjs";
 import {GetSystem} from "../../services/system/get.system";
 import {AddStoreService} from "../../services/adds/add.store.service";
+import {PopupComponent} from "../../components/popup/popup.component";
 
 
 @Component({
@@ -16,7 +17,8 @@ import {AddStoreService} from "../../services/adds/add.store.service";
     NgIf,
     ReactiveFormsModule,
     NgForOf,
-    NgOptimizedImage
+    NgOptimizedImage,
+    PopupComponent
   ],
   templateUrl: './add.component.html',
   styleUrl: './add.component.css'
@@ -45,6 +47,20 @@ export class AddComponent implements OnInit, OnDestroy {
     city_id: new FormControl(''),
   });
 
+  isPopupVisible: boolean = false;
+  protected favoriteMessage: string | null = '';
+  protected isAnswered: boolean = false;
+
+  popupClose(data: boolean): void {
+    this.isPopupVisible = data;
+    this.isAnswered = false;
+    this.location.back();
+  }
+
+  showPopup() {
+    this.isPopupVisible = true;
+  }
+
   sendData(): void {
     this.form.disable();
     this.form.patchValue({
@@ -53,8 +69,10 @@ export class AddComponent implements OnInit, OnDestroy {
 
     this.addAsub = this.addService.store(this.form).subscribe({
       next: (data: any) => {
+        this.isAnswered = true;
+        this.favoriteMessage = "Объявление успешно опубликовано, после модерации оно станет будет доступно другим пользователям";
+        this.showPopup();
         this.form.enable();
-        console.log(data);
       },
       error: (error: any) => {
         console.log(error);
@@ -77,7 +95,7 @@ export class AddComponent implements OnInit, OnDestroy {
   private defaultCategory = '1';
   protected loadImages: string[] = [];
 
-  constructor(private system: GetSystem, private addService: AddStoreService) {
+  constructor(private system: GetSystem, private addService: AddStoreService, private location: Location) {
   }
 
   onSelectChange($event: any) {
